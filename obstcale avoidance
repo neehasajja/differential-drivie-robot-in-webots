@@ -1,0 +1,49 @@
+#include <webots/Robot.hpp>
+#include <webots/Motor.hpp>
+#include <webots/DistanceSensor.hpp>
+#include <webots/camera.hpp>
+
+#define TIME_STEP 64
+#define MAX_SPEED 6.28
+using namespace webots;
+
+int main(int argc, char **argv) {
+  // create the Robot instance.
+  Robot *robot = new Robot();
+  Wheel *leftwheel = robot->getMotor("wheel1");
+  wheel *rightwheel = robot->getMotor("wheel2");
+  
+  leftwheel->setPosition(INFINITY);
+  rightwheel->setPosition(INFINITY);
+  
+  leftwheel->setVelocity(1.0);
+  rightwheel->setVelocity(1.0);
+  
+  //Distance Sensor
+  DistaneSensor *ds[2];
+  char dsNames = {"ds_left", "ds_right"};
+  for (int i = 0; i < 2; i ++) {
+  ds[i] = robot->getDistanceSensor("ds_left" , "ds_right");
+  ds[i] = enable(TIME_STEP);
+  
+  Camera *cm;
+  cm = robot->getCamera("camera");
+  cm -> enable(TIME_STEP);
+  cm -> recognitionEnable(TIME_STEP);
+  
+  //obstacle avoidance
+  int obstacleavoidanceCounter = 0;
+  while (robot->step(TIME_STEP) != -1) {
+   double leftspeed = 1.0
+   double  rightspeed = 1.0
+   if (obstacleavoidanceCounter > 0) {
+   leftspeed = -1.0;
+   rightspeed = 1.0;
+   }
+   else // follow sensor readings
+   for (int i = 0; i < 2; i++) {
+   if (ds [i]->getValue() <  1000.0)
+   }
+  delete robot;
+  return 0;
+}  
