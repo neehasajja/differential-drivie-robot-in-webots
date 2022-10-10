@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <webots/DistanceSensor.hpp>
 #include <webots/Motor.hpp>
 #include <webots/Robot.hpp>
 
@@ -51,9 +53,13 @@ int main(int argc, char **argv) {
 
     if (ObstacleAvoidanceCounter > 0) {
       ObstacleAvoidanceCounter--;
+      else if (left_obstacle) {
       //turn right
       leftSpeed = 0.5 * MAX_SPEED;
       rightSpeed = -0.5 * MAX_SPEED;
+      }
+
+      else  {
        // turn left
       leftSpeed  = -0.5 * MAX_SPEED;
       rightSpeed = 0.5 * MAX_SPEED;
@@ -61,7 +67,7 @@ int main(int argc, char **argv) {
     leftMotor->setVelocity(leftSpeed);
     rightMotor->setVelocity(rightSpeed);
     }
-
+  }
 
     else { // read sensor values
       for (int i = 0; i < 2; i++) {
